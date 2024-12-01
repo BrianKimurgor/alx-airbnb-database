@@ -12,34 +12,21 @@ CREATE INDEX idx_property_location ON properties(location); -- Optimize filterin
 CREATE INDEX idx_property_name ON properties(name); -- Optimize searching by name
 CREATE INDEX idx_property_id ON properties(id); -- Already indexed if it's a primary key
 
--- Measure Query Performance Using EXPLAIN or ANALYZE
--- Before Adding Indexes
--- Use EXPLAIN to analyze the query plan:
 
 
 EXPLAIN SELECT * 
-FROM bookings 
-JOIN users ON bookings.user_id = users.id 
-WHERE users.email = 'example@example.com';
+FROM Booking 
+JOIN User ON Booking.user_id = User.id 
+WHERE Booking.start_date BETWEEN '2024-01-01' AND '2024-12-31';
 
-
--- After Adding Indexes
--- Re-run the query after adding indexes:
+EXPLAIN SELECT * 
+FROM Booking 
+JOIN User ON Booking.user_id = User.id 
+WHERE Booking.start_date BETWEEN '2024-01-01' AND '2024-12-31';
 
 
 EXPLAIN SELECT * 
-FROM bookings 
-JOIN users ON bookings.user_id = users.id 
-WHERE users.email = 'example@example.com';
--- You should notice:
--- The key column now shows the index being used (e.g., idx_user_email).
--- The query execution time is significantly reduced.
--- Step 4: Save and Document Performance Results
--- Use ANALYZE to get detailed execution times:
+FROM Booking 
+JOIN User ON Booking.user_id = User.id 
+WHERE Booking.start_date BETWEEN '2024-01-01' AND '2024-12-31';
 
-
-ANALYZE SELECT * 
-FROM bookings 
-JOIN users ON bookings.user_id = users.id 
-WHERE users.email = 'example@example.com';
--- Record both the pre-index and post-index performance metrics in your documentation or database log.
