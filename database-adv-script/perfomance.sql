@@ -11,16 +11,15 @@ SELECT
     Property.name AS property_name,
     Property.location AS property_location,
     Payment.id AS payment_id,
-    Payment.amount,
+    Payment.amount AS payment_amount,
     Payment.status AS payment_status
 FROM 
-    Booking
-JOIN 
-    User ON Booking.user_id = User.id
-JOIN 
-    Property ON Booking.property_id = Property.id
-JOIN 
-    Payment ON Booking.id = Payment.booking_id;
+    Booking, User, Property, Payment
+WHERE 
+    Booking.user_id = User.id
+    AND Booking.property_id = Property.id
+    AND Booking.id = Payment.booking_id;
+
 
 
 
