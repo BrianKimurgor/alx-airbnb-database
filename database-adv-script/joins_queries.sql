@@ -14,7 +14,6 @@ ON
     bookings.user_id = users.id;
 
 
--- 2. LEFT JOIN to retrieve all properties and their reviews, including properties that have no reviews
 SELECT
     properties.id AS property_id,
     properties.name AS property_name,
@@ -27,7 +26,11 @@ FROM
 LEFT JOIN
     reviews
 ON
-    properties.id = reviews.property_id;
+    properties.id = reviews.property_id
+ORDER BY
+    properties.name ASC, -- Orders properties alphabetically by name
+    reviews.rating DESC; -- Orders reviews within each property by rating in descending order
+
 
 
 -- 3. FULL OUTER JOIN to retrieve all users and all bookings, even if the user has no booking or a booking is not linked to a user
